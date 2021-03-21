@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
+{% block content %}
     <h1>page pour admin</h1>
     <p>{{ app.user.username }}</p>
     <p>{{ app.user.email }}</p>
@@ -9,4 +9,15 @@
             <li>{{role}}</li>
         {%endfor%}
     </ul>
+{% endblock %}
+
+{% block breadcrumb %}
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Tableau de bord</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Liste des catégories</li>
+        </ol>
+    </nav>
+  
 {% endblock %}
