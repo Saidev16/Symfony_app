@@ -1,0 +1,60 @@
+{% extends 'back.html.twig' %}
+
+{% block content %}
+
+
+    
+    <h3>Liste des categories</h3>
+    <div class="float-right">
+        <div class="float-right mb-2">
+            <a class="btn btn-success" href="{{ path('admin_category_new') }}"> <i class="fa fa-plus"></i>Nouvelle catégorie </a>
+        </div>
+    </div>
+    
+
+    <table class="table" >
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                
+                <th>Slug</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+            <tr>
+                <td><a href="{{ path('admin_category_show', { 'id': category.id }) }}">{{ category.id }}</a></td>
+                <td nowrap="nowrap">{{ category.libelle }}</td>          
+                <td nowrap="nowrap">{{ category.slug }}</td>
+                <td nowrap="nowrap">{{ category.description | slice(0, 80) }}...</td>
+                <td>
+                    
+                            <a class="btn btn-primary" href="{{ path('admin_category_show', { 'id': category.id }) }}">show</a>
+                    
+                    
+                            <a class="btn btn-danger" href="{{ path('admin_category_edit', { 'id': category.id }) }}">edit</a>
+                        
+                    
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="navigation mx-auto">
+        {{knp_pagination_render(categories)}}
+    </div>    
+
+   
+{% endblock %}
+
+{% block breadcrumb %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Tableau de bord</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Liste des catégories</li>
+        </ol>
+    </nav>
+{% endblock %}
