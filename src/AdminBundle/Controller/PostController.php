@@ -40,11 +40,18 @@ class PostController extends Controller
     public function newAction(Request $request)
     {
         $post = new Post();
-        $form = $this->createForm('AdminBundle\Form\PostType', $post);
+        $form = $this->createForm('AdminBundle\Form\PostType', $post, ['validation_groups'=> ['new']]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $file = $post->getImage();
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $file->move( $this->getParameter('uploads_posts_directory') ,$fileName );
+            $post->setImage($fileName);
+
+
             $em->persist($post);
             $em->flush();
 
@@ -81,11 +88,23 @@ class PostController extends Controller
      */
     public function editAction(Request $request, Post $post)
     {
+        $oldPost = $post->getImage();
         $deleteForm = $this->createDeleteForm($post);
         $editForm = $this->createForm('AdminBundle\Form\PostType', $post);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            if( $post->getImage()== null ){
+                $post->setImage($oldPost);
+            }else{
+                $file = $post->getImage();
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+                $file->move( $this->getParameter('uploads_posts_directory') ,$fileName );
+                $post->setImage($fileName);
+            }
+
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('admin_post_edit', array('id' => $post->getId()));

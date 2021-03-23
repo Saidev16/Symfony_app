@@ -53,11 +53,12 @@
                 <div class="col-md-4">
                     {% block breadcrumb %}  {% endblock %}
                 </div>
-                <div class="col-md-8 " align='right' >
-                    <select name="accesRapide" id="">
-                        <option value="">Nouveau article</option>
-                        <option value="">Nouvelle catégorie</option>
+                <div  class="col-md-8 " align='right' id='app'>
+                  {% verbatim %}
+                    <select v-on:change='getAccesRapid' name="accesRapide" v-model='accesRapide'  >
+                        <option v-for='acces in listAccesRapide' v-bind:value="acces.lien">{{acces.libelle}}</option>
                     </select>
+                  {% endverbatim %}
                 </div>
             </div>
 
@@ -69,8 +70,8 @@
                         <li class="list-group-item"><a href="{{ path('admin_category_index') }}">Liste des catégories</a></li>
                         <li class="list-group-item"><a href=" {{ path('admin_category_new') }} ">Nouvelle catégorie</a></li>
                         <li class="list-group-item">Articles</li>
-                        <li class="list-group-item"><a href="">Liste des articels</a></li>
-                        <li class="list-group-item"><a href="#">Nouveau article</a></li>
+                        <li class="list-group-item"><a href="{{ path('admin_post_index') }}">Liste des articels</a></li>
+                        <li class="list-group-item"><a href="{{ path('admin_post_new') }}">Nouveau article</a></li>
                         <li class="list-group-item">Administration</li>
                         <li class="list-group-item"><a href="">statistiques</a></li>
                         <li class="list-group-item"><a href="">Paramétrage</a></li>
@@ -86,7 +87,27 @@
         </div>
 
 
-        
-        {% block javascripts %}{% endblock %}
+        <script src="{{ asset('js/vue.min.js') }}" ></script>
+        <script>
+          var myApp = new Vue({
+            el : '#app',
+            data : {
+              accesRapide: '',
+              listAccesRapide : [
+                {libelle : 'Accés rapide', lien : ''},
+                {libelle : 'Nouveau article', lien : '/admin/post/new'},
+                {libelle : 'Nouvelle catégorie', lien : '/admin/category/new'},
+              ]
+            },
+            methods: {
+              getAccesRapid : function(){
+                window.location = this.accesRapide 
+              }
+            },
+          })
+
+        </script>
+        {% block javascripts %}
+        {% endblock %}
     </body>
 </html>

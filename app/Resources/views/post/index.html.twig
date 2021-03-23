@@ -1,47 +1,39 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
 {% block content %}
-    <h1>Posts list</h1>
+    <h3>Liste des posts</h3>
+    <div>
+            <a class="btn btn-primary float-right mb-3" href="{{ path('admin_post_new') }}">Nouveau Post</a>
+    </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titre</th>
-                <th>Description</th>
-                <th>Body</th>
-                <th>Slug</th>
-                <th>Datepublish</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+        <div class="row">
         {% for post in posts %}
-            <tr>
-                <td><a href="{{ path('admin_post_show', { 'id': post.id }) }}">{{ post.id }}</a></td>
-                <td>{{ post.titre }}</td>
-                <td>{{ post.description }}</td>
-                <td>{{ post.body }}</td>
-                <td>{{ post.slug }}</td>
-                <td>{% if post.datepublish %}{{ post.datepublish|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_post_show', { 'id': post.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_post_edit', { 'id': post.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
+        <div class="col-md-4">
+            <div class="card mb-2" style="width: 18rem;">
+                <img src="{{ asset('uploads/posts/') ~ post.image }}" class="card-img-top" alt="imagepost" width="268" height="180">
+                <div class="card-body">
+                  <h5 class="card-title">{{ post.titre | slice(0,80) }}</h5>
+                  <p class="card-text">{{ post.description }}</p>
+                  <a href="{{ path('admin_post_show', { 'id': post.id }) }}" class="btn btn-primary">Afficher</a>
+                  <a href="{{ path('admin_post_edit', { 'id': post.id }) }}" class="btn btn-warning">Modifier</a>
+                </div>
+            </div>
+        </div>
         {% endfor %}
-        </tbody>
-    </table>
+    </div>
+        
+           
+        
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_post_new') }}">Create a new post</a>
-        </li>
-    </ul>
+
+
+{% endblock %}
+
+{% block breadcrumb %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Tableau de bord</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Liste des articles</li>
+        </ol>
+    </nav>
 {% endblock %}
