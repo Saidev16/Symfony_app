@@ -5,48 +5,56 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        <link rel="stylesheet" href="{{ asset('back/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ asset('front/bulma.min.css') }}">
         <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
     </head>
     <body>
 
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://bulma.io">
+      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+    </a>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">AppSymfony</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
 
-  <div class="collapse navbar-collapse" id="navbarColor01">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#"> <i class="fa fa-home"></i> Accueil
-          <span class="sr-only">(current)</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Blog</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">About</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Contact</a>
-      </li>
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item">
+        Home
+      </a>
 
-    </ul>
-      {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-      <button class="btn btn-warning mr-3 my-2 my-sm-0"> <a href=""> Connecté tant que : {{app.user.username}} </a> </button>
-      <button class="btn btn-warning mr-3 my-2 my-sm-0"  > <a href="{{ path('fos_user_security_logout')}}"> <i class="fas fa-sign-out-alt"></i> {{ 'layout.logout' | trans(
-        {}, "FOSUserBundle" ) }}</a> </button>
-      {% else %}
-      <button class="btn btn-warning mr-3 my-2 my-sm-0"  > <a href="{{ path('fos_user_security_login') }}"> <i class="fas fa-sign-in-alt"></i> {{ 'layout.login' | trans(
-                                                                    {}, "FOSUserBundle" ) }} </a> </button>
-      <button class="btn btn-warning my-2 my-sm-0"  > <a href="{{path('fos_user_registration_register')}}"><i class="fas fa-user-plus"></i> {{ 'layout.register' | trans(
-        {}, "FOSUserBundle" ) }}</a> </button>
-      {% endif %}
+      <a class="navbar-item" href="{{ path('contact_page') }}">
+        Contactez Nous
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-primary">
+            <strong>Sign up</strong>
+          </a>
+          <a class="button is-light">
+            Log in
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </nav>
+
+
 
 
 
